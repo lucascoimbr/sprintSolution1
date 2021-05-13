@@ -1,7 +1,10 @@
 @ECHO OFF 
 
-::Cria o banco de dados
-::docker exec -it hive-server bash -c "hive -e 'create database if not exists raw;'"
+::Cria o banco de dados bronze
+docker exec -it hive-server bash -c "hive -e 'create database if not exists bronze;'"
+
+::Cria o banco de dados silver
+docker exec -it hive-server bash -c "hive -e 'create database if not exists silver;'"
 
 ::Tabela JOGADORES
 
