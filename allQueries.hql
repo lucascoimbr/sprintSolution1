@@ -197,3 +197,25 @@ LOCATION '/datalake/2020'
 tblproperties ("skip.header.line.count"="1");
 
 
+CREATE EXTERNAL TABLE IF NOT EXISTS bronze.medias_jogadores2018
+(player_slug string,	player_id string,	player_nickname string,	player_team string,	player_position string,	price_cartoletas string,	score_mean string,	score_no_cleansheets_mean string,	diff_home_away_s string,	n_games string,	score_mean_home string,	score_mean_away string,	shots_x_mean string,	fouls_mean string,	RB_mean string,	PE_mean string,	A_mean string,	I_mean string,	FS_mean string,	FF_mean string,	G_mean string,	DD_mean string,	DP_mean string,	status string,	price_diff string,	last_points string)
+row format delimited fields terminated by ','
+stored as textfile
+LOCATION '/datalake/medias_jogadores/2018'
+tblproperties ("skip.header.line.count"="1");
+
+CREATE EXTERNAL TABLE IF NOT EXISTS bronze.medias_jogadores2019
+(player_slug string,	player_id string,	player_nickname string,	player_team string,	player_position string,	price_cartoletas string,	score_mean string,	score_no_cleansheets_mean string,	diff_home_away_s string,	n_games string,	score_mean_home string,	score_mean_away string,	shots_x_mean string,	fouls_mean string,	RB_mean string,	PE_mean string,	A_mean string,	I_mean string,	FS_mean string,	FF_mean string,	G_mean string,	DD_mean string,	DP_mean string,	status string,	price_diff string,	last_points string)
+row format delimited fields terminated by ','
+stored as textfile
+LOCATION '/datalake/medias_jogadores/2019'
+tblproperties ("skip.header.line.count"="1");
+
+CREATE EXTERNAL TABLE IF NOT EXISTS bronze.medias_jogadores2020
+(player_slug string,	player_id string,	player_nickname string,	player_team string,	player_position string,	price_cartoletas string,	score_mean string,	score_no_cleansheets_mean string,	diff_home_away_s string,	n_games string,	score_mean_home string,	score_mean_away string,	shots_x_mean string,	fouls_mean string,	RB_mean string,	PE_mean string,	A_mean string,	I_mean string,	FS_mean string,	FF_mean string,	G_mean string,	DD_mean string,	DP_mean string,	status string,	price_diff string,	last_points string)
+row format delimited fields terminated by ','
+stored as textfile
+LOCATION '/datalake/medias_jogadores/2020'
+tblproperties ("skip.header.line.count"="1");
+
+
