@@ -115,7 +115,7 @@ stored as textfile
 LOCATION '/datalake/partidas_ids/2016'
 tblproperties ("skip.header.line.count"="1");
 
-CREATE EXTERNAL TABLE IF NOT EXISTS bronze.scouts_bronze2014
+CREATE EXTERNAL TABLE IF NOT EXISTS bronze.scouts_raw2014
 (Rodada string,	ClubeID string,	AtletaID string,	Participou string,	
 Pontos string,	PontosMedia string,	Preco string,	PrecoVariacao string,	
 FS string,	PE string,	A string,	FT string,	FD string,	FF string,	G string,	
@@ -123,10 +123,10 @@ I string,	PP string,	RB string,	FC string,	GC string,	CA string,	CV string,
 SG string,	DD string,	DP string,	GS string)
 row format delimited fields terminated by ','
 stored as textfile
-LOCATION '/datalake/scouts_bronze/2014'
+LOCATION '/datalake/scouts_raw/2014'
 tblproperties ("skip.header.line.count"="1");
 
-CREATE EXTERNAL TABLE IF NOT EXISTS bronze.scouts_bronze2015
+CREATE EXTERNAL TABLE IF NOT EXISTS bronze.scouts_raw2015
 (Rodada string,	ClubeID string,	AtletaID string,	Participou string,	
 Pontos string,	PontosMedia string,	Preco string,	PrecoVariacao string,	
 FS string,	PE string,	A string,	FT string,	FD string,	FF string,	G string,	
@@ -134,10 +134,10 @@ I string,	PP string,	RB string,	FC string,	GC string,	CA string,	CV string,
 SG string,	DD string,	DP string,	GS string)
 row format delimited fields terminated by ','
 stored as textfile
-LOCATION '/datalake/scouts_bronze/2015'
+LOCATION '/datalake/scouts_raw/2015'
 tblproperties ("skip.header.line.count"="1");
 
-CREATE EXTERNAL TABLE IF NOT EXISTS bronze.scouts_bronze2016
+CREATE EXTERNAL TABLE IF NOT EXISTS bronze.scouts_raw2016
 (Rodada string,	ClubeID string,	AtletaID string,	Participou string,	
 Pontos string,	PontosMedia string,	Preco string,	PrecoVariacao string,	
 FS string,	PE string,	A string,	FT string,	FD string,	FF string,	G string,	
@@ -145,10 +145,10 @@ I string,	PP string,	RB string,	FC string,	GC string,	CA string,	CV string,
 SG string,	DD string,	DP string,	GS string)
 row format delimited fields terminated by ','
 stored as textfile
-LOCATION '/datalake/scouts_bronze/2016'
+LOCATION '/datalake/scouts_raw/2016'
 tblproperties ("skip.header.line.count"="1");
 
-CREATE EXTERNAL TABLE IF NOT EXISTS bronze.scouts_bronze2017
+CREATE EXTERNAL TABLE IF NOT EXISTS bronze.scouts_raw2017
 (Rodada string,	ClubeID string,	AtletaID string,	Participou string,	
 Pontos string,	PontosMedia string,	Preco string,	PrecoVariacao string,	
 FS string,	PE string,	A string,	FT string,	FD string,	FF string,	G string,	
@@ -156,7 +156,7 @@ I string,	PP string,	RB string,	FC string,	GC string,	CA string,	CV string,
 SG string,	DD string,	DP string,	GS string)
 row format delimited fields terminated by ','
 stored as textfile
-LOCATION '/datalake/scouts_bronze/2017'
+LOCATION '/datalake/scouts_raw/2017'
 tblproperties ("skip.header.line.count"="1");
 
 
