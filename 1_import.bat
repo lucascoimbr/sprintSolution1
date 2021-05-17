@@ -12,8 +12,6 @@ docker cp caRtola/data/ datanode:/home/
 ::Abre o HDFS
 docker exec -it datanode bash
 
-::Coloca os dados efetivamente no HDFS
-hadoop fs -put /home/data /home/
 
 
 
