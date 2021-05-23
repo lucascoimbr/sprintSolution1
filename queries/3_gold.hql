@@ -4,6 +4,9 @@ create database gold;
 
 --BASE DE PARTIDAS ---------------------
 create table if not exists gold.partidas as
+SELECT distinct *
+FROM
+(
 SELECT * FROM
 (SELECT 
 *
@@ -69,3 +72,4 @@ clube_id, clube_name as away_team2
 from `silver`.`clube_id`) as df_away
 ON df.away_team = df_away.clube_id
 ) as dfFinal2) df_2019_2020
+) AS DFPARTIDAS
