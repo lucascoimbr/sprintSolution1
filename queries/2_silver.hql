@@ -1,70 +1,98 @@
 --Silver Layer
-create database if not exists silver;
+drop database if exists silver cascade;
+create database silver;
 
-create table if not exists silver.jogadores_2014_2018 as
-select cast(ID as bigint), apelido, 
-clubeid, posicaoid,
-cast('2014' as int) as ano from `bronze`.`jogadores2014`
-UNION ALL
-select cast(ID as bigint), apelido, 
-clubeid, posicaoid,
-cast('2015' as int) as ano  from `bronze`.`jogadores2015`
-UNION ALL
-select cast(ID as bigint), apelido, 
-clubeid, posicaoid,
-cast('2016' as int) as ano  from `bronze`.`jogadores2016`
-UNION ALL
-select cast(ID as bigint), apelido, 
-clubeid, posicaoid,
-cast('2017' as int) as ano  from `bronze`.`jogadores2017`
-UNION ALL
-select cast(ID as bigint), apelido, 
-clubeid, posicaoid,
-cast('2018' as int) as ano  from `bronze`.`jogadores2018`;
+--TABELAS DE PARTIDAS
+create table if not exists silver.partidas2014 as
+select 
+ cast(to_date(from_unixtime(unix_timestamp(datecol, 'dd/MM/yyyy'))) as date) as datecol
+, cast(roundcol as int)
+, cast(game as int)
+, home_team, away_team
+, split(score, 'x')[0] as home_score
+, split(score, 'x')[1] as away_score
+, arena 
+, cast('2014' as int) as ano from `bronze`.`partidas2014`;
 
-create table if not exists silver.medias_jogadores_2018_2020 as
-select *,
-cast('2018' as int) as ano from `bronze`.`medias_jogadores2018`
-UNION ALL
-select *,
-cast('2019' as int) as ano  from `bronze`.`medias_jogadores2019`
-UNION ALL
-select *,
-cast('2020' as int) as ano  from `bronze`.`medias_jogadores2020`;
+create table if not exists silver.partidas2015 as
+select 
+ cast(to_date(from_unixtime(unix_timestamp(datecol, 'dd/MM/yyyy'))) as date) as datecol
+, cast(roundcol as int)
+, cast(game as int)
+, home_team, away_team
+, split(score, 'x')[0] as home_score
+, split(score, 'x')[1] as away_score
+, arena 
+, cast('2015' as int) as ano  from `bronze`.`partidas2015`;
 
-create table if not exists silver.partidas_2014_2020 as
-select *,
-cast('2014' as int) as ano from `bronze`.`partidas2014`
-UNION ALL
-select *,
-cast('2015' as int) as ano  from `bronze`.`partidas2015`
-UNION ALL
-select *,
-cast('2016' as int) as ano  from `bronze`.`partidas2016`
-UNION ALL
-select *,
-cast('2017' as int) as ano  from `bronze`.`partidas2017`
-UNION ALL
-select *,
-cast('2019' as int) as ano  from `bronze`.`partidas2018`
-UNION ALL
-select *,
-cast('2019' as int) as ano  from `bronze`.`partidas2019`
-UNION ALL
-select *,
-cast('2020' as int) as ano  from `bronze`.`partidas2020`;
+create table if not exists silver.partidas2016 as
+select 
+ cast(to_date(from_unixtime(unix_timestamp(datecol, 'dd/MM/yyyy'))) as date) as datecol
+, cast(roundcol as int)
+, cast(game as int)
+, home_team, away_team
+, split(score, 'x')[0] as home_score
+, split(score, 'x')[1] as away_score
+, arena 
+, cast('2016' as int) as ano  from `bronze`.`partidas2016`;
 
+create table if not exists silver.partidas2017 as
+select 
+ cast(to_date(from_unixtime(unix_timestamp(datecol, 'dd/MM/yyyy'))) as date) as datecol
+, cast(roundcol as int)
+, cast(game as int)
+, home_team, away_team
+, split(score, 'x')[0] as home_score
+, split(score, 'x')[1] as away_score
+, arena 
+, cast('2017' as int) as ano  from `bronze`.`partidas2017`;
 
-create table if not exists silver.scouts_raw2014_2017 as
-select *,
-cast('2014' as int) as ano from `bronze`.`scouts_raw2014`
+create table if not exists silver.partidas2018 as
+select 
+ cast(to_date(from_unixtime(unix_timestamp(datecol, 'dd/MM/yyyy'))) as date) as datecol
+, cast(roundcol as int)
+, cast(game as int)
+, home_team, away_team
+, split(score, 'x')[0] as home_score
+, split(score, 'x')[1] as away_score
+, arena 
+, cast('2018' as int) as ano  from `bronze`.`partidas2018`;
+
+create table if not exists silver.partidas2019 as
+select 
+ cast(to_date(from_unixtime(unix_timestamp(datecol, 'yyyy-MM-dd'))) as date) as datecol
+, cast(roundcol as int)
+, cast(1 as int) as game
+, home_team, away_team
+, home_score
+, away_score
+, "-" as arena 
+, cast('2019' as int) as ano  from `bronze`.`partidas2019`;
+
+create table if not exists silver.partidas2020 as
+select 
+ cast(to_date(from_unixtime(unix_timestamp(datecol, 'yyyy-MM-dd'))) as date) as datecol
+, cast(roundcol as int)
+, cast(1 as int) as game
+, home_team, away_team
+, home_score
+, away_score
+, "-" as arena 
+, cast('2020' as int) as ano  from `bronze`.`partidas2020`;
+
+--TABELA DE ID DOS CLUBES
+
+create table if not exists silver.clube_id as
+SELECT 
+distinct(clube_id), clube_Name
+from
+(select 
+distinct(clube_id), clubeidname as clube_Name 
+from `bronze`.`rodadas2019`
 UNION ALL
-select *,
-cast('2015' as int) as ano  from `bronze`.`scouts_raw2016`
-UNION ALL
-select *,
-cast('2016' as int) as ano  from `bronze`.`scouts_raw2016`
-UNION ALL
-select *,
-cast('2017' as int) as ano  from `bronze`.`scouts_raw2017`;
+select 
+distinct(clube_id), clubeidfullname as clube_Name 
+from `bronze`.`rodadas2020`
+where clube_id <> clubeidfullname
+) AS df;
 
