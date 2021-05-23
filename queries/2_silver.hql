@@ -9,8 +9,8 @@ select
 , cast(roundcol as int)
 , cast(game as int)
 , home_team, away_team
-, split(score, 'x')[0] as home_score
-, split(score, 'x')[1] as away_score
+, cast(trim(split(score, 'x')[0]) as int) as home_score
+, cast(trim(split(score, 'x')[1]) as int) as away_score
 , arena 
 , cast('2014' as int) as ano from `bronze`.`partidas2014`;
 
@@ -20,8 +20,8 @@ select
 , cast(roundcol as int)
 , cast(game as int)
 , home_team, away_team
-, split(score, 'x')[0] as home_score
-, split(score, 'x')[1] as away_score
+, cast(trim(split(score, 'x')[0]) as int) as home_score
+, cast(trim(split(score, 'x')[1]) as int) as away_score
 , arena 
 , cast('2015' as int) as ano  from `bronze`.`partidas2015`;
 
@@ -31,8 +31,8 @@ select
 , cast(roundcol as int)
 , cast(game as int)
 , home_team, away_team
-, split(score, 'x')[0] as home_score
-, split(score, 'x')[1] as away_score
+, cast(trim(split(score, 'x')[0]) as int) as home_score
+, cast(trim(split(score, 'x')[1]) as int) as away_score
 , arena 
 , cast('2016' as int) as ano  from `bronze`.`partidas2016`;
 
@@ -42,8 +42,8 @@ select
 , cast(roundcol as int)
 , cast(game as int)
 , home_team, away_team
-, split(score, 'x')[0] as home_score
-, split(score, 'x')[1] as away_score
+, cast(trim(split(score, 'x')[0]) as int) as home_score
+, cast(trim(split(score, 'x')[1]) as int) as away_score
 , arena 
 , cast('2017' as int) as ano  from `bronze`.`partidas2017`;
 
@@ -53,8 +53,8 @@ select
 , cast(roundcol as int)
 , cast(game as int)
 , home_team, away_team
-, split(score, 'x')[0] as home_score
-, split(score, 'x')[1] as away_score
+, cast(trim(split(score, 'x')[0]) as int) as home_score
+, cast(trim(split(score, 'x')[1]) as int) as away_score
 , arena 
 , cast('2018' as int) as ano  from `bronze`.`partidas2018`;
 
@@ -64,8 +64,8 @@ select
 , cast(roundcol as int)
 , cast(1 as int) as game
 , home_team, away_team
-, home_score
-, away_score
+, cast(trim(home_score) as int)
+, cast(trim(away_score) as int)
 , "-" as arena 
 , cast('2019' as int) as ano  from `bronze`.`partidas2019`;
 
@@ -75,8 +75,8 @@ select
 , cast(roundcol as int)
 , cast(1 as int) as game
 , home_team, away_team
-, home_score
-, away_score
+, cast(trim(home_score) as int)
+, cast(trim(away_score) as int)
 , "-" as arena 
 , cast('2020' as int) as ano  from `bronze`.`partidas2020`;
 
