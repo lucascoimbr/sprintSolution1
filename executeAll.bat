@@ -46,5 +46,6 @@ cd D:\docker\sprintSolution1\batches
 echo queries
 call 4_hiveQuery.bat
 
-docker exec -it datanode bash
 echo FINALIZADO!
+docker exec -it datanode bash
+

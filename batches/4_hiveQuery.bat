@@ -1,13 +1,9 @@
 @ECHO OFF 
 
-::Cria o banco de dados bronze
-docker exec -it hive-server bash -c "hive -e 'create database if not exists bronze;'"
-
-::Cria o banco de dados silver
-docker exec -it hive-server bash -c "hive -e 'create database if not exists silver;'"
-
-::Cria o banco de dados Gold
-docker exec -it hive-server bash -c "hive -e 'create database if not exists gold;'"
+::Apaga os bancos preexistentes
+docker exec -it hive-server bash -c "hive -e 'drop database if exists bronze cascade;'"
+docker exec -it hive-server bash -c "hive -e 'drop database if exists silver cascade;'"
+docker exec -it hive-server bash -c "hive -e 'drop database if exists gold cascade;'"
 
 docker exec -it hive-server bash -c "hive -f /opt/hive/1_bronze.hql"
 
