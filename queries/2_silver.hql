@@ -80,30 +80,6 @@ select
 , "-" as arena 
 , cast('2020' as int) as ano  from `bronze`.`partidas2020`;
 
---TABELA DE ID DOS CLUBES
-
-CREATE TABLE IF NOT EXISTS silver.clube_2018 as
-SELECT distinct *
-FROM
-(
-SELECT clube_id, clubeidname as nome
-from `bronze`.`rodadas2018`
-) AS df;
-
-create table if not exists silver.clube_id_2019_2020 as
-SELECT 
-distinct(clube_id), clube_Name
-from
-(select 
-distinct(clube_id), clubeidname as clube_Name 
-from `bronze`.`rodadas2019`
-UNION ALL
-select 
-distinct(clube_id), clubeidfullname as clube_Name 
-from `bronze`.`rodadas2020`
-where clube_id <> clubeidfullname
-) AS df;
-
 --TABELA DE SCOUTS 2014-217
 create table if not exists silver.scouts_raw2014_2017 as
 select 
@@ -148,5 +124,29 @@ cast(atleta_id as int) as atletaid
 , cast(pontos_num as float) as pontos
 , cast('2020' as int) as ano
 from `bronze`.`rodadas2020`;
+
+--TABELA DE ID DOS CLUBES
+
+CREATE TABLE IF NOT EXISTS silver.clube_2018 as
+SELECT distinct *
+FROM
+(
+SELECT clube_id, clubeidname as nome
+from `bronze`.`rodadas2018`
+) AS df;
+
+create table if not exists silver.clube_id_2019_2020 as
+SELECT 
+distinct(clube_id), clube_Name
+from
+(select 
+distinct(clube_id), clubeidname as clube_Name 
+from `bronze`.`rodadas2019`
+UNION ALL
+select 
+distinct(clube_id), clubeidfullname as clube_Name 
+from `bronze`.`rodadas2020`
+where clube_id <> clubeidfullname
+) AS df;
 
 

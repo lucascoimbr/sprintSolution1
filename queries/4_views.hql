@@ -1,4 +1,4 @@
---Gold Layer
+--Views
 
 --Numero de registros
 DROP VIEW IF EXISTS gold.numRegistros;
@@ -11,7 +11,8 @@ GROUP BY ano;
 DROP VIEW IF EXISTS gold.numEquipesMandantes;
 CREATE VIEW IF NOT EXISTS gold.numEquipesMandantes AS 
 select ano, count(distinct home_team) as numEquipes 
-from `gold`.`partida`;
+from `gold`.`partida`
+GROUP BY ano;
 
 --Num. de vitórias para equipes mandantes, visitantes e empates
 DROP VIEW IF EXISTS gold.vit_mandantes_visitantes;
@@ -19,7 +20,7 @@ CREATE VIEW IF NOT EXISTS gold.vit_mandantes_visitantes AS
 SELECT 
 ano
 ,sum(mandanteGanhou) as Vit_Mandantes
-,sum(visitanteGanhou) as Vit_Mandantes
+,sum(visitanteGanhou) as Vit_Visitantes
 ,sum(empate) as empate
 FROM
 (
@@ -98,18 +99,15 @@ and grouped1.atletaid = jogador_clube.id
 where clubeid is not null) as grouped2
 LEFT JOIN `gold`.`clube` as clube
 ON clube.id = clubeid) as grouped3
-GROUP BY ano, clube
+GROUP BY ano, clube;
 
 DROP VIEW IF EXISTS gold.timeIdeal;
 CREATE VIEW IF NOT EXISTS gold.timeIdeal AS 
-SELECT * 
+SELECT groupedClub.pontosclube, grouped4.ano, clube
 FROM
 (SELECT 
 max(pontosclube) as pontosclube, ano
 from groupedClub
 GROUP BY ano) grouped4
 left join groupedClub
-ON groupedClub.pontosclube = grouped4.pontosclube
-
-
-
+ON groupedClub.pontosclube = grouped4.pontosclube;

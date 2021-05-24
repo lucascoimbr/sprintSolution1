@@ -1,6 +1,6 @@
 --Gold Layer
 drop database if exists gold cascade;
-create database gold;
+create database if not exists gold;
 
 --BASE DE PARTIDAS ---------------------
 create table if not exists gold.partida as
@@ -36,18 +36,16 @@ datecol, roundcol, game
 , home_score, away_score, arena, ano
 FROM
 (
-SELECT 
-* 
-from `silver`.`partidas2019` as df
+SELECT * from `silver`.`partidas2019` as df
 LEFT JOIN 
 (SELECT 
 clube_id, clube_name as home_team2
-from `silver`.`clube_id`) as df_home
+from `silver`.`clube_id_2019_2020`) as df_home
 ON df.home_team = df_home.clube_id
 LEFT JOIN 
 (SELECT 
 clube_id, clube_name as away_team2
-from `silver`.`clube_id`) as df_away
+from `silver`.`clube_id_2019_2020`) as df_away
 ON df.away_team = df_away.clube_id
 ) as dfFinal
 UNION ALL
@@ -64,12 +62,12 @@ from `silver`.`partidas2020` as df
 LEFT JOIN 
 (SELECT 
 clube_id, clube_name as home_team2
-from `silver`.`clube_id`) as df_home
+from `silver`.`clube_id_2019_2020`) as df_home
 ON df.home_team = df_home.clube_id
 LEFT JOIN 
 (SELECT 
 clube_id, clube_name as away_team2
-from `silver`.`clube_id`) as df_away
+from `silver`.`clube_id_2019_2020`) as df_away
 ON df.away_team = df_away.clube_id
 ) as dfFinal2) df_2019_2020
 ) AS DFPARTIDAS;
