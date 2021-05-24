@@ -33,3 +33,46 @@ ano
 FROM `gold`.`partida`
 ) as df
 GROUP BY ANO;
+
+--Jogador com maiores SCOUTS
+
+DROP VIEW IF EXISTS gold.jogador_scouts;
+CREATE VIEW IF NOT EXISTS gold.jogador_scouts AS 
+SELECT apelido as jogador, pontos, ano 
+FROM
+(SELECT grouped2.*, grouped1.atletaid 
+FROM
+(SELECT
+max(pontos) as pontos, ano
+FROM
+(select 
+atletaid, sum(pontos) as pontos, ano
+from `gold`.`scout`
+GROUP BY ano, atletaid
+) as grouped1
+GROUP BY ano
+) as grouped2
+LEFT JOIN
+(select 
+atletaid, sum(pontos) as pontos, ano
+from `gold`.`scout`
+GROUP BY ano, atletaid
+) as grouped1
+ON grouped1.pontos = grouped2.pontos) as grouped3
+LEFT JOIN `gold`.`jogador`
+ON atletaid = id;
+
+--JOGADOR COM O MÁXIMO SCOUT
+
+DROP VIEW IF EXISTS gold.maximoScout;
+CREATE VIEW IF NOT EXISTS gold.maximoScout AS 
+SELECT viewScouts.*
+FROM 
+(select 
+max(pontos) as pontos
+from `gold`.`jogador_scouts`) AS grouped1
+LEFT JOIN
+`gold`.`jogador_scouts` as viewScouts
+ON grouped1.pontos = viewScouts.pontos;
+
+
