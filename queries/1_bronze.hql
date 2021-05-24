@@ -193,12 +193,21 @@ stored as textfile
 LOCATION '/datalake/partidas_ids/2016'
 tblproperties ("skip.header.line.count"="1");
 
+Atleta string, 	Rodada string, 	Clube string, 	Participou string, 	Posicao string, 	Jogos string, 	
+Pontos string, 	PontosMedia string, 	Preco string, 	PrecoVariacao string, 	Partida string, 	
+Mando string, 	Titular string, 	Substituido string, 	TempoJogado string, 	Nota string, 	
+FS string, 	PE string, 	A string, 	FT string, 	FD string, 	FF string, 	G string, 	I string, 	
+PP string, 	RB string, 	FC string, 	GC string, 	CA string, 	CV string, 	SG string, 	DD string, 	
+DP string, 	GS string
+
+
 CREATE EXTERNAL TABLE IF NOT EXISTS bronze.scouts_raw2014
-(Rodada string,	ClubeID string,	AtletaID string,	Participou string,	
-Pontos string,	PontosMedia string,	Preco string,	PrecoVariacao string,	
-FS string,	PE string,	A string,	FT string,	FD string,	FF string,	G string,	
-I string,	PP string,	RB string,	FC string,	GC string,	CA string,	CV string,	
-SG string,	DD string,	DP string,	GS string)
+(Atleta string, 	Rodada string, 	Clube string, 	Participou string, 	Posicao string, 	Jogos string, 	
+Pontos string, 	PontosMedia string, 	Preco string, 	PrecoVariacao string, 	Partida string, 	
+Mando string, 	Titular string, 	Substituido string, 	TempoJogado string, 	Nota string, 	
+FS string, 	PE string, 	A string, 	FT string, 	FD string, 	FF string, 	G string, 	I string, 	
+PP string, 	RB string, 	FC string, 	GC string, 	CA string, 	CV string, 	SG string, 	DD string, 	
+DP string, 	GS string)
 ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.OpenCSVSerde'
 WITH SERDEPROPERTIES (
 "separatorChar" = ",",
@@ -209,12 +218,12 @@ stored as textfile
 LOCATION '/datalake/scouts_raw/2014'
 tblproperties ("skip.header.line.count"="1");
 
+
 CREATE EXTERNAL TABLE IF NOT EXISTS bronze.scouts_raw2015
-(Rodada string,	ClubeID string,	AtletaID string,	Participou string,	
-Pontos string,	PontosMedia string,	Preco string,	PrecoVariacao string,	
-FS string,	PE string,	A string,	FT string,	FD string,	FF string,	G string,	
-I string,	PP string,	RB string,	FC string,	GC string,	CA string,	CV string,	
-SG string,	DD string,	DP string,	GS string)
+(Rodada string,	ClubeID string,	AtletaID string,	Jogos string,	Pontos string,	PontosMedia string,	
+Preco string,	PrecoVariacao string,	FS string,	PE string,	A string,	FT string,	FD string,	
+FF string,	G string,	I string,	PP string,	RB string,	FC string,	GC string,	CA string,	
+CV string,	SG string,	DD string,	DP string,	GS string)
 ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.OpenCSVSerde'
 WITH SERDEPROPERTIES (
 "separatorChar" = ",",
@@ -242,11 +251,13 @@ LOCATION '/datalake/scouts_raw/2016'
 tblproperties ("skip.header.line.count"="1");
 
 CREATE EXTERNAL TABLE IF NOT EXISTS bronze.scouts_raw2017
-(Rodada string,	ClubeID string,	AtletaID string,	Participou string,	
-Pontos string,	PontosMedia string,	Preco string,	PrecoVariacao string,	
-FS string,	PE string,	A string,	FT string,	FD string,	FF string,	G string,	
-I string,	PP string,	RB string,	FC string,	GC string,	CA string,	CV string,	
-SG string,	DD string,	DP string,	GS string)
+(ID string,	A string,	CA string,	CV string,	DD string,	DP string,	FC string,	
+FD string,	FF string,	FS string,	FT string,	G string,	GC string,	GS string,	
+I string,	PE string,	PP string,	RB string,	SG string,	scout string,	apelido string,	
+atleta_id string,	clubeidfullname string,	clube_id string,	foto string,	
+jogos_num string,	media_num string,	nome string,	pontos_num string,	
+posicao_id string,	preco_num string,	Rodada string,	status_id string,	
+variacao_num string)
 ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.OpenCSVSerde'
 WITH SERDEPROPERTIES (
 "separatorChar" = ",",
@@ -329,8 +340,10 @@ stored as textfile
 LOCATION '/datalake/medias_jogadores/2019'
 tblproperties ("skip.header.line.count"="1");
 
-CREATE EXTERNAL TABLE IF NOT EXISTS bronze.medias_jogadores2020
-(player_slug string,	player_id string,	player_nickname string,	player_team string,	player_position string,	price_cartoletas string,	score_mean string,	score_no_cleansheets_mean string,	diff_home_away_s string,	n_games string,	score_mean_home string,	score_mean_away string,	shots_x_mean string,	fouls_mean string,	RB_mean string,	PE_mean string,	A_mean string,	I_mean string,	FS_mean string,	FF_mean string,	G_mean string,	DD_mean string,	DP_mean string,	status string,	price_diff string,	last_points string)
+--Times
+
+CREATE EXTERNAL TABLE IF NOT EXISTS bronze.clubes_2014_2017
+(id string,	nome string,	abreviacao string,	slug string)
 ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.OpenCSVSerde'
 WITH SERDEPROPERTIES (
 "separatorChar" = ",",
@@ -338,5 +351,5 @@ WITH SERDEPROPERTIES (
 "escapeChar"="\\"
 )
 stored as textfile
-LOCATION '/datalake/medias_jogadores/2020'
+LOCATION '/datalake/times'
 tblproperties ("skip.header.line.count"="1");

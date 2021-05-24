@@ -64,8 +64,8 @@ select
 , cast(roundcol as int)
 , cast(1 as int) as game
 , home_team, away_team
-, cast(trim(home_score) as int)
-, cast(trim(away_score) as int)
+, cast(trim(home_score) as int) as home_score
+, cast(trim(away_score) as int) as away_score
 , "-" as arena 
 , cast('2019' as int) as ano  from `bronze`.`partidas2019`;
 
@@ -75,14 +75,20 @@ select
 , cast(roundcol as int)
 , cast(1 as int) as game
 , home_team, away_team
-, cast(trim(home_score) as int)
-, cast(trim(away_score) as int)
+, cast(trim(home_score) as int) as home_score
+, cast(trim(away_score) as int) as away_score
 , "-" as arena 
 , cast('2020' as int) as ano  from `bronze`.`partidas2020`;
 
 --TABELA DE ID DOS CLUBES
 
-create table if not exists silver.clube_id as
+CREATE EXTERNAL TABLE IF NOT EXISTS silver.clubes_2018
+SELECT 
+clube_id as id
+, clubeidname
+from `bronze`.`rodadas2018`;
+
+create table if not exists silver.clube_id_2019_2020 as
 SELECT 
 distinct(clube_id), clube_Name
 from
@@ -95,4 +101,50 @@ distinct(clube_id), clubeidfullname as clube_Name
 from `bronze`.`rodadas2020`
 where clube_id <> clubeidfullname
 ) AS df;
+
+--TABELA DE SCOUTS 2014-217
+create table if not exists silver.scouts_raw2014_2017 as
+select 
+cast(atleta as int) as atletaid, cast(rodada as int) as rodada
+, cast(pontos as float) as pontos
+, cast('2014' as int) as ano from `bronze`.`scouts_raw2014`
+UNION ALL
+SELECT
+cast(atletaid as int) as atletaid, cast(rodada as int) as rodada
+, cast(pontos as float) as pontos
+, cast('2015' as int) as ano  from `bronze`.`scouts_raw2015`
+UNION ALL
+select 
+cast(atletaid as int) as atletaid, cast(rodada as int) as rodada
+, cast(pontos as float) as pontos
+, cast('2016' as int) as ano  from `bronze`.`scouts_raw2016`
+UNION ALL
+select 
+cast(atleta_id as int) as atletaid, cast(rodada as int) as rodada
+, cast(pontos_num as float) as pontos
+, cast('2017' as int) as ano  from `bronze`.`scouts_raw2017`;
+
+--TABELA DE RODADAS 2018-2020
+create table if not exists silver.scouts_2018_2020 as
+select 
+cast(atleta_id as int) as atletaid
+, cast(rodada_id as int) as rodada
+, cast(pontos_num as float) as pontos
+, cast('2018' as int) as ano
+from `bronze`.`rodadas2018`
+UNION ALL
+select 
+cast(atleta_id as int) as atletaid
+, cast(rodada_id as int) as rodada
+, cast(pontos_num as float) as pontos
+, cast('2019' as int) as ano
+from `bronze`.`rodadas2019`
+UNION ALL
+select 
+cast(atleta_id as int) as atletaid
+, cast(rodada_id as int) as rodada
+, cast(pontos_num as float) as pontos
+, cast('2020' as int) as ano
+from `bronze`.`rodadas2020`;
+
 

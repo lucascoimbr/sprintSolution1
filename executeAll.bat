@@ -43,6 +43,11 @@ call 3_6_medias_jogadores.bat
 
 cd D:\docker\sprintSolution1\batches
 
+echo times
+call 3_7_times.bat
+
+cd D:\docker\sprintSolution1\batches
+
 echo queries
 call 4_hiveQuery.bat
 
