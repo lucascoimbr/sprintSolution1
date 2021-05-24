@@ -3,7 +3,7 @@ drop database if exists gold cascade;
 create database gold;
 
 --BASE DE PARTIDAS ---------------------
-create table if not exists gold.partidas as
+create table if not exists gold.partida as
 SELECT distinct *
 FROM
 (
@@ -75,7 +75,7 @@ ON df.away_team = df_away.clube_id
 ) AS DFPARTIDAS;
 
 --TABELA DE SCOUTS
-create table if not exists gold.scouts as
+create table if not exists gold.scout as
 select * from `silver`.`scouts_raw2014_2017`
 UNION ALL
 select * from `silver`.`scouts_2018_2020`;
@@ -167,4 +167,20 @@ cast(player_id as int) as id
 from `bronze`.`medias_jogadores2020`
 ) as df;
 
+--CLUBES
+CREATE TABLE IF NOT EXISTS gold.clube AS
+SELECT id, max(nome) as nome
+FROM 
+(
+SELECT id, nome
+from `bronze`.`clubes_2014_2017`
+UNION ALL
+SELECT clube_id as id, nome
+from `silver`.`clube_2018`
+UNION ALL
+SELECT clube_id as id, clube_name as nome
+from `silver`.`clube_id_2019_2020`
+) as df
+WHERE nome is not null
+GROUP BY id;
 

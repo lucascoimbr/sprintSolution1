@@ -4,14 +4,14 @@
 DROP VIEW IF EXISTS gold.numRegistros;
 CREATE VIEW IF NOT EXISTS gold.numRegistros AS 
 select ano, count(datecol) as numRegistros 
-from `gold`.`partidas`
+from `gold`.`partida`
 GROUP BY ano;
 
 --Equipes mandantes
 DROP VIEW IF EXISTS gold.numEquipesMandantes;
 CREATE VIEW IF NOT EXISTS gold.numEquipesMandantes AS 
 select ano, count(distinct home_team) as numEquipes 
-from `gold`.`partidas`;
+from `gold`.`partida`;
 
 --Num. de vitórias para equipes mandantes, visitantes e empates
 DROP VIEW IF EXISTS gold.vit_mandantes_visitantes;
@@ -30,6 +30,6 @@ ano
 , CASE WHEN home_score > away_score then 1 else 0 end mandanteGanhou
 , CASE WHEN home_score > away_score then 1 else 0 end visitanteGanhou
 , CASE WHEN home_score = away_score then 1 else 0 end empate
-FROM `gold`.`partidas`
+FROM `gold`.`partida`
 ) as df
 GROUP BY ANO;

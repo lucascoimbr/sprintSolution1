@@ -82,11 +82,13 @@ select
 
 --TABELA DE ID DOS CLUBES
 
-CREATE EXTERNAL TABLE IF NOT EXISTS silver.clubes_2018
-SELECT 
-clube_id as id
-, clubeidname
-from `bronze`.`rodadas2018`;
+CREATE TABLE IF NOT EXISTS silver.clube_2018 as
+SELECT distinct *
+FROM
+(
+SELECT clube_id, clubeidname as nome
+from `bronze`.`rodadas2018`
+) AS df;
 
 create table if not exists silver.clube_id_2019_2020 as
 SELECT 
