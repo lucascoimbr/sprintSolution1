@@ -75,4 +75,41 @@ LEFT JOIN
 `gold`.`jogador_scouts` as viewScouts
 ON grouped1.pontos = viewScouts.pontos;
 
+--TIME IDEAL
+
+CREATE TEMPORARY TABLE groupedClub AS
+SELECT clube, ano, sum(pontos) as pontosClube
+FROM
+(SELECT clube.nome as clube, grouped2.ano, atletaid, pontos
+FROM
+(select 
+*
+FROM
+(select 
+atletaid, ano, sum(pontos) as pontos
+from 
+`gold`.`scout`
+group By ano, atletaid) as grouped1
+LEFT JOIN 
+`gold`.`jogador_clube` as jogador_clube
+ON 
+grouped1.ano = jogador_clube.ano 
+and grouped1.atletaid = jogador_clube.id
+where clubeid is not null) as grouped2
+LEFT JOIN `gold`.`clube` as clube
+ON clube.id = clubeid) as grouped3
+GROUP BY ano, clube
+
+DROP VIEW IF EXISTS gold.timeIdeal;
+CREATE VIEW IF NOT EXISTS gold.timeIdeal AS 
+SELECT * 
+FROM
+(SELECT 
+max(pontosclube) as pontosclube, ano
+from groupedClub
+GROUP BY ano) grouped4
+left join groupedClub
+ON groupedClub.pontosclube = grouped4.pontosclube
+
+
 
