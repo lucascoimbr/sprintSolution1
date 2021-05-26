@@ -29,7 +29,7 @@ ano
 , home_score
 , away_score
 , CASE WHEN home_score > away_score then 1 else 0 end mandanteGanhou
-, CASE WHEN home_score > away_score then 1 else 0 end visitanteGanhou
+, CASE WHEN home_score < away_score then 1 else 0 end visitanteGanhou
 , CASE WHEN home_score = away_score then 1 else 0 end empate
 FROM `gold`.`partida`
 ) as df
@@ -78,13 +78,10 @@ ON grouped1.pontos = viewScouts.pontos;
 
 --TIME IDEAL
 
-CREATE TEMPORARY TABLE groupedClub AS
-SELECT clube, ano, sum(pontos) as pontosClube
-FROM
-(SELECT clube.nome as clube, grouped2.ano, atletaid, pontos
-FROM
-(select 
-*
+DROP VIEW IF EXISTS gold.tempView1;
+CREATE VIEW IF NOT EXISTS gold.tempView1 AS 
+select 
+atletaid, grouped1.ano, pontos, clubeid
 FROM
 (select 
 atletaid, ano, sum(pontos) as pontos
@@ -96,18 +93,24 @@ LEFT JOIN
 ON 
 grouped1.ano = jogador_clube.ano 
 and grouped1.atletaid = jogador_clube.id
-where clubeid is not null) as grouped2
-LEFT JOIN `gold`.`clube` as clube
-ON clube.id = clubeid) as grouped3
-GROUP BY ano, clube;
+where clubeid is not null
+
+DROP VIEW IF EXISTS gold.tempView2;
+CREATE VIEW IF NOT EXISTS gold.tempView2 AS 
+SELECT sum(pontos) as pontosclube, ano, nome as clube
+FROM
+(select *
+FROM gold.tempView1 as tempView1
+LEFT JOIN 
+gold.clube 
+ON clube.id = tempView1.clubeid) as grouped2
+GROUP BY ano, nome;
 
 DROP VIEW IF EXISTS gold.timeIdeal;
 CREATE VIEW IF NOT EXISTS gold.timeIdeal AS 
-SELECT groupedClub.pontosclube, grouped4.ano, clube
-FROM
-(SELECT 
-max(pontosclube) as pontosclube, ano
-from groupedClub
-GROUP BY ano) grouped4
-left join groupedClub
-ON groupedClub.pontosclube = grouped4.pontosclube;
+SELECT * from 
+(select * from gold.tempview2 where clube is not null) as grouped3
+where pontosclube in (SELECT max(pontosclube) from gold.tempview2 group by ano);
+
+DROP VIEW IF EXISTS gold.tempView1;
+DROP VIEW IF EXISTS gold.tempView2;

@@ -14,3 +14,4 @@ docker cp caRtola/data/ datanode:/home/
 
 
 
+

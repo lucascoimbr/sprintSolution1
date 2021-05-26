@@ -124,43 +124,43 @@ SELECT distinct * from
 (
 select 
 cast(id as int) as id
-, cast(clubeid as int) as clubeid
+, cast(clubeid as string) as clubeid
 , cast('2014' as int) as ano
 from `bronze`.`jogadores2014`
 UNION ALL
 select
 cast(id as int) as id
-, cast(clubeid as int) as clubeid
+, cast(clubeid as string) as clubeid
 , cast('2015' as int) as ano
 from `bronze`.`jogadores2015`
 UNION ALL
 select
 cast(id as int) as id
-, cast(clubeid as int) as clubeid
+, cast(clubeid as string) as clubeid
 , cast('2016' as int) as ano
 from `bronze`.`jogadores2016`
 UNION ALL
 select 
 cast(id as int) as id
-, cast(clubeid as int) as clubeid
+, cast(clubeid as string) as clubeid
 , cast('2017' as int) as ano
 from `bronze`.`jogadores2017`
 UNION ALL
 select 
 cast(id as int) as id
-, cast(clubeid as int) as clubeid
+, clubeid
 , cast('2018' as int) as ano
 from `bronze`.`jogadores2018`
 UNION ALL
 select 
 cast(player_id as int) as id
-, cast(player_team as int) as clubeid
+, cast(player_team as string) as clubeid
 , cast('2019' as int) as ano
 from `bronze`.`medias_jogadores2019`
 UNION ALL
 select 
 cast(player_id as int) as id
-, cast(player_team as int) as clubeid
+, cast(player_team as string) as clubeid
 , cast('2020' as int) as ano
 from `bronze`.`medias_jogadores2020`
 ) as df;
@@ -173,7 +173,7 @@ FROM
 SELECT id, nome
 from `bronze`.`clubes_2014_2017`
 UNION ALL
-SELECT clube_id as id, nome
+SELECT nome as id, nome
 from `silver`.`clube_2018`
 UNION ALL
 SELECT clube_id as id, clube_name as nome
@@ -181,4 +181,3 @@ from `silver`.`clube_id_2019_2020`
 ) as df
 WHERE nome is not null
 GROUP BY id;
-
